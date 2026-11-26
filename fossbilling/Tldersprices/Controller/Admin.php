@@ -4,6 +4,14 @@ declare(strict_types=1);
 
 namespace Box\Mod\Tldersprices\Controller;
 
+// FOSSBilling 0.8.9 and the development branch name these framework classes differently.
+if (!interface_exists('FOSSBilling\InjectionAwareInterface') && interface_exists('FOSSBilling\Core\Container\InjectionAwareInterface')) {
+    class_alias('FOSSBilling\Core\Container\InjectionAwareInterface', 'FOSSBilling\InjectionAwareInterface');
+}
+if (!class_exists('Box_App') && class_exists('FOSSBilling\Core\Http\App')) {
+    class_alias('FOSSBilling\Core\Http\App', 'Box_App');
+}
+
 class Admin implements \FOSSBilling\InjectionAwareInterface
 {
     protected ?\Pimple\Container $di = null;

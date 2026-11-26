@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace __MOD_NS__\Tldersprices\Controller;
 
+__CTRL_COMPAT__
 class Admin implements __DI_IFACE__
 {
     protected ?\Pimple\Container $di = null;

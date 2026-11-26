@@ -12,7 +12,7 @@ Red means more than your threshold above the cheapest registrar; green means you
 
 ## Requirements
 
-- FOSSBilling 0.8.9 or ClientFence 1.0.62 (the versions it was tested on), PHP 8.3 or newer, and the `curl` extension
+- FOSSBilling 0.8.9, the FOSSBilling development branch (`main`, tested at commit `b4b6bdb`, 2026-11-24) or ClientFence 1.0.62 (the versions it was tested on), PHP 8.3 or newer, and the `curl` extension
 - A TLDers API key. A free key (100 requests a month) is enough: prices are cached for 24 hours and one refresh uses 3 requests. Get one at [tlders.com/developers](https://www.tlders.com/developers).
 
 ## Install
@@ -36,6 +36,18 @@ Red means more than your threshold above the cheapest registrar; green means you
 - Compares 1-year register and renew prices. Prices you have not set (0) are shown as "—".
 - Staff need the **View TLDers price comparison** permission, which you can grant under staff permissions.
 - The module only reads your TLD prices; it never changes them.
+
+## Packages
+
+`./package.sh` builds three zips into `dist/`:
+
+| Zip | Use |
+|---|---|
+| `tlders-price-monitor-fossbilling-<version>.zip` | Manual install on FOSSBilling 0.8.9 or `main` (unzip into `modules/`) |
+| `tlders-price-monitor-clientfence-<version>.zip` | Manual install on ClientFence |
+| `tlders-price-monitor-fossbilling-directory-<version>.zip` | For [extensions.fossbilling.org](https://extensions.fossbilling.org): files at the zip root and a manifest v1. The directory's auto-install only exists on FOSSBilling's development branch; on 0.8.9 use the manual zip. |
+
+`python3 tools/check_directory_zip.py <zip>` pre-checks a zip against the directory's published rules (a reimplementation, not the official validator).
 
 ## Development
 

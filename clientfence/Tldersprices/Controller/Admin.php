@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ClientFence\Mod\Tldersprices\Controller;
 
+
 class Admin implements \ClientFence\InjectionAwareInterface
 {
     protected ?\Pimple\Container $di = null;

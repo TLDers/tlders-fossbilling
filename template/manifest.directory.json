@@ -1,0 +1,18 @@
+{
+  "manifest_version": 1,
+  "type": "module",
+  "id": "tldersprices",
+  "name": "TLDers Price Monitor",
+  "version": "1.0.1",
+  "description": "Compare the domain prices you charge with the cheapest of 145+ registrars for every TLD you sell, updated daily. Shows where you are above the market for register and renew prices.",
+  "author": {
+    "name": "TLDers",
+    "url": "https://www.tlders.com"
+  },
+  "license": "MIT",
+  "homepage_url": "https://github.com/TLDers/tlders-fossbilling",
+  "requires": {
+    "fossbilling": ">=0.8.9",
+    "php": ">=8.3"
+  }
+}

@@ -10,6 +10,7 @@ $targets = [
         '__API_COMPAT__' => "// FOSSBilling 0.8.9 uses \\FOSSBilling\\Api\\AbstractApi; the development branch renamed it.\nif (!class_exists('\\FOSSBilling\\Api\\AbstractApi') && class_exists('\\FOSSBilling\\Core\\Api\\AbstractApi')) {\n    class_alias('\\FOSSBilling\\Core\\Api\\AbstractApi', '\\FOSSBilling\\Api\\AbstractApi');\n}\n",
         '__DI_IFACE__' => '\\FOSSBilling\\InjectionAwareInterface',
         '__APP__' => '\\Box_App',
+        '__CTRL_COMPAT__' => "// FOSSBilling 0.8.9 and the development branch name these framework classes differently.\nif (!interface_exists('FOSSBilling\\InjectionAwareInterface') && interface_exists('FOSSBilling\\Core\\Container\\InjectionAwareInterface')) {\n    class_alias('FOSSBilling\\Core\\Container\\InjectionAwareInterface', 'FOSSBilling\\InjectionAwareInterface');\n}\nif (!class_exists('Box_App') && class_exists('FOSSBilling\\Core\\Http\\App')) {\n    class_alias('FOSSBilling\\Core\\Http\\App', 'Box_App');\n}\n",
     ],
     'clientfence' => [
         '__MOD_NS__' => 'ClientFence\\Mod',
@@ -17,6 +18,7 @@ $targets = [
         '__API_COMPAT__' => '',
         '__DI_IFACE__' => '\\ClientFence\\InjectionAwareInterface',
         '__APP__' => '\\ClientFence\\App',
+        '__CTRL_COMPAT__' => '',
     ],
 ];
 
