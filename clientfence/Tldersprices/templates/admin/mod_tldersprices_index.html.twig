@@ -1,0 +1,68 @@
+{% extends request.ajax ? 'layout_blank.html.twig' : 'layout_default.html.twig' %}
+
+{% block meta_title %}{{ 'TLDers Price Monitor'|trans }}{% endblock %}
+
+{% set active_menu = 'system' %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <div>
+            <h3 class="card-title">{{ 'TLDers Price Monitor'|trans }}</h3>
+            <p class="card-subtitle">{{ 'Your 1-year prices vs the cheapest registrar on the market, in'|trans }} {{ currency.code }}.</p>
+        </div>
+        <div class="card-actions">
+            <a href="{{ 'tldersprices'|url }}?refresh=1" class="btn btn-outline-primary">{{ 'Refresh prices'|trans }}</a>
+            <a href="{{ 'extension/settings/tldersprices'|url }}" class="btn btn-outline-secondary">{{ 'Settings'|trans }}</a>
+        </div>
+    </div>
+
+    {% if error %}
+    <div class="card-body">
+        <div class="alert alert-warning mb-0">{{ error }}</div>
+    </div>
+    {% else %}
+    <div class="card-body">
+        <p class="text-muted mb-0">
+            <span class="text-danger">{{ 'Red'|trans }}</span> = {{ 'more than'|trans }} {{ threshold }}% {{ 'above market'|trans }};
+            <span class="text-success">{{ 'green'|trans }}</span> = {{ 'below the cheapest registrar'|trans }}.
+        </p>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-vcenter card-table table-striped">
+            <thead>
+                <tr>
+                    <th>{{ 'TLD'|trans }}</th>
+                    <th>{{ 'Your register'|trans }}</th><th>{{ 'Market register'|trans }}</th><th>{{ 'Diff'|trans }}</th>
+                    <th>{{ 'Your renew'|trans }}</th><th>{{ 'Market renew'|trans }}</th><th>{{ 'Diff'|trans }}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in rows %}
+                <tr>
+                    <td><strong>.{{ row.tld }}</strong></td>
+                    {% for kind in ['register', 'renew'] %}
+                    {% set c = attribute(row, kind) %}
+                    <td>{{ c.yours is null ? '—' : currency.symbol ~ c.yours|number_format(currency.fraction_digits|default(2)) }}</td>
+                    <td>
+                        {% if c.market is null %}—{% else %}{{ currency.symbol ~ c.market|number_format(currency.fraction_digits|default(2)) }} <small class="text-muted">{{ c.registrar }}</small>{% endif %}
+                    </td>
+                    <td class="{{ c.status == 'over' ? 'text-danger' : (c.status == 'under' ? 'text-success' : '') }}">
+                        {% if c.diff is not null %}<strong>{{ c.diff >= 0 ? '+' : '' }}{{ c.diff|number_format(0) }}%</strong>{% endif %}
+                    </td>
+                    {% endfor %}
+                    <td><a href="https://www.tlders.com/{{ row.tld|url_encode }}" target="_blank" rel="noopener">{{ 'All prices'|trans }} ↗</a></td>
+                </tr>
+                {% else %}
+                <tr><td colspan="8" class="text-center text-muted">{{ 'No TLDs are set up yet.'|trans }}</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer text-muted small">
+        {{ 'Market data from'|trans }} <a href="https://www.tlders.com" target="_blank" rel="noopener">TLDers</a>, {{ 'refreshed daily. Cached for 24 hours.'|trans }}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

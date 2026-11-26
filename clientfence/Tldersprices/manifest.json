@@ -1,0 +1,12 @@
+{
+  "id": "tldersprices",
+  "type": "mod",
+  "name": "TLDers Price Monitor",
+  "description": "Compare your domain prices with the cheapest of 145+ registrars for every TLD you sell, updated daily.",
+  "icon_url": "icon.svg",
+  "homepage_url": "https://www.tlders.com/developers",
+  "author": "TLDers",
+  "author_url": "https://www.tlders.com",
+  "license": "MIT",
+  "version": "1.0.0"
+}
